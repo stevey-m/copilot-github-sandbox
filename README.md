@@ -8,7 +8,7 @@ No personal data, no database — just a plain HTML/JS/CSS front end that
 Copilot can extend.
 
 > This repo is intentionally basic and low-stakes: a place to practice
-> the mechanics without worrying about breaking anything "real." A
+> the mechanics without worrying about breaking anything "real". A
 > separate, security-focused portfolio project builds on what's learned
 > here.
 
