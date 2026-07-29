@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check for basic HTML/JS issues
+        run: |
+          echo "Placeholder job — replace with a real linter (e.g. eslint, htmlhint)"
+          echo "Copilot can help scaffold this once the repo is live."
