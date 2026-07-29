@@ -1,11 +1,16 @@
 # copilot-github-sandbox
 
-A static, public, no-backend repo for learning GitHub Copilot and the broader
-GitHub feature set (Actions, Runners, webhooks, issues, pull requests,
-security, code quality, secrets) by building things inside it.
+A static, no-backend playground for learning GitHub Copilot and core
+GitHub features — Actions, issues, pull requests, secrets, and security
+tooling — by building things inside it.
 
 No personal data, no database — just a plain HTML/JS/CSS front end that
 Copilot can extend.
+
+> This repo is intentionally basic and low-stakes: a place to practice
+> the mechanics without worrying about breaking anything "real." A
+> separate, security-focused portfolio project builds on what's learned
+> here.
 
 ## Structure
 
@@ -14,6 +19,7 @@ Copilot can extend.
 /script.js    - functions Copilot will help you write and extend
 /style.css    - minimal styling
 /.github/workflows/ci.yml  - starter Actions workflow
+/LEARNING_GUIDE.md - how-to-use / how-to-test walkthrough per feature area
 ```
 
 ## Setup
@@ -26,6 +32,9 @@ Copilot can extend.
    let Copilot suggest it, then wire it into `index.html`.
 
 ## Learning roadmap
+
+See `LEARNING_GUIDE.md` for a full "how to use / how to test" walkthrough
+of each area below.
 
 - [ ] Get a Copilot-suggested function working end-to-end in the browser
 - [ ] Open a pull request and try Copilot code review
