@@ -50,16 +50,21 @@ A working environment covering:
 - The scaffolding (CODEOWNERS, PR template) needed to practice
   review-gated merges once you enable a ruleset requiring them
 
+## What's now proven end-to-end
+
+- ✅ Ruleset requiring PRs, all 4 status checks, and Code Owners review
+  — tested with a rejected direct push, a blocked PR, and a real
+  admin-bypass merge (GitHub doesn't allow self-approval, even for the
+  repo owner — the bypass-list + admin-role pattern is the correct fix
+  for a solo-maintainer repo, and it logs every use). Full tested
+  procedure is in `LEARNING_GUIDE.md` §4.
+
 ## Suggested next additions (not yet built)
 
 **Small, quick:**
 - **A repo secret + reference it in a workflow** — Learning Guide §5
   covers this; no new file needed, just a settings step and one line
   added to a workflow.
-- **Enable branch protection / a ruleset requiring the CI checks and
-  CODEOWNERS review** — settings only, no files. This is what makes
-  `CODEOWNERS` and the PR template actually *enforce* something rather
-  than sit unused.
 
 **Slightly bigger, worth deciding on:**
 - **A real test runner** instead of just a syntax check — e.g. a

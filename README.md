@@ -51,15 +51,14 @@ of each area below.
 - [x] Add a second CI job (lint + matrix syntax-check)
 - [x] Add CODEOWNERS and a PR template
 - [x] Deploy to GitHub Pages
+- [x] Enable branch protection via a ruleset — require PRs, require all
+      4 status checks, require Code Owners review, with an admin
+      bypass path for the solo-maintainer case (see Learning Guide §4)
 - [ ] Get a Copilot-suggested function working end-to-end in the browser
 - [ ] Open a pull request and try Copilot code review
 - [ ] Add a repo secret and reference it in a workflow (e.g. a dummy API key)
-- [ ] Enable branch protection + required status checks (a ruleset
-      requiring CODEOWNERS review is a good one to try, now that
-      CODEOWNERS exists)
 - [ ] File an issue, then try assigning it to the Copilot coding agent
 - [ ] Review Security tab findings (Dependabot, code scanning)
 - [ ] Deliberately open a PR that fails CI (e.g. break `index.html`
       syntax), watch it fail, then fix it — proves the checks can
       actually catch something, not just pass
-test

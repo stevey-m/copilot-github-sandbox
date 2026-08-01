@@ -108,19 +108,88 @@ can be merged, so mistakes get caught before they reach `main`.
 ### How to use it
 1. Go to repo **Settings → Copilot → Code review**, and enable automatic
    review on pull requests (available on your Enterprise license).
-2. Go to **Settings → Branches**, add a branch protection rule for
-   `main` requiring the CI check to pass and at least one review before
-   merging.
-3. Open a new PR as in section 3 — Copilot will automatically leave
-   review comments on it within a minute or two.
+2. Go to **Rules → Rulesets → New ruleset → New branch ruleset**, name
+   it (e.g. `main-protection`), and target the default branch.
+3. Under **Branch rules**, enable:
+   - **Restrict deletions**
+   - **Block force pushes**
+   - **Require a pull request before merging** — once checked, a
+     sub-option appears for **Require review from Code Owners**; check
+     that too, and set **Required approvals to 1** (it defaults to
+     `0`, which silently makes the Code Owners checkbox meaningless —
+     easy to miss).
+   - **Require status checks to pass** — add every individual check,
+     including each matrix job separately (e.g. `syntax-check (18)`,
+     `syntax-check (20)`, `syntax-check (22)` are three distinct
+     checks, not one — a matrix build reports each version as its own
+     status check).
+4. Set **Enforcement status** to **Active**.
+5. **A real gotcha found while testing this:** GitHub never allows a
+   PR author to approve their own PR, no matter their permissions —
+   this creates a genuine deadlock on a solo repo with Code Owners
+   review required, since there's no second person to approve. Fix it
+   with a **bypass list**: in the same ruleset, add **Repository
+   admin** to the bypass list. This keeps the rule fully enforced for
+   anyone without admin rights, while letting you merge via an
+   explicit, logged **"Merge without waiting for requirements to be
+   met (bypass rules)"** action — a deliberate, auditable exception
+   rather than either "impossible to merge solo" or "silently
+   unenforced."
 
-### How to test it
-- Confirm the PR page shows a "Review required" or "Checks pending"
-  state before you've satisfied the rules, and that the **Merge** button
-  is disabled or shows a warning.
-- Intentionally write a small, obviously improvable bit of code (an
-  unused variable, a magic number) and confirm Copilot's review flags it.
-- Satisfy the requirements and confirm the merge button becomes enabled.
+### How to test it — full walkthrough, tested end to end
+1. **Confirm a direct push to `main` is rejected:**
+   ```
+   echo "test" >> README.md
+   git add README.md
+   git commit -m "test: direct push to main should be blocked"
+   git push origin main
+   ```
+   Expect a `GH013` rejection citing "Changes must be made through a
+   pull request" and the required status checks. That rejection is the
+   correct, passing result.
+2. **Undo the local commit** (it never reached GitHub):
+   ```
+   git reset --soft HEAD~1
+   git restore --staged README.md
+   git checkout README.md
+   ```
+3. **Do it properly via a branch and PR:**
+   ```
+   git checkout -b test-ruleset-flow
+   echo "test" >> README.md
+   git add README.md
+   git commit -m "test: confirm PR flow satisfies ruleset requirements"
+   git push origin test-ruleset-flow
+   ```
+   Open the PR from GitHub's prompt.
+4. **Confirm the PR correctly shows both requirements:**
+   - All required status checks listed and passing
+   - A **"Review required"** / **"Merging is blocked"** state citing
+     the approval requirement — confirms the rule is genuinely
+     enforced, not just configured
+5. **Confirm self-approval is genuinely blocked:** try to approve your
+   own PR (Files changed → Review changes → Approve → Submit) — GitHub
+   rejects this outright ("Pull request owners cannot approve their
+   own pull request"). This is expected and is GitHub platform
+   behavior, not something to fix.
+6. **Use the bypass path deliberately:** the PR should now offer
+   **"Merge without waiting for requirements to be met (bypass
+   rules)"** as a distinct button, separate from a normal merge.
+   Clicking it completes the merge — GitHub logs this as a
+   bypass-merge in the PR timeline, giving a permanent, visible audit
+   trail every time the exception path is used.
+7. Clean up:
+   ```
+   git checkout main
+   git pull
+   git branch -d test-ruleset-flow
+   ```
+
+The complete, correct lesson here isn't just "require review" — it's
+**least-privilege enforcement with a documented, traceable exception
+path for the case where there's genuinely no second reviewer**, which
+is closer to how this actually works on a real team than a naive
+"require 1 approval" setup would be.
 
 ---
 
