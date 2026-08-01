@@ -1,0 +1,4 @@
+# Default owner for everything in the repo — routes all PRs through
+# a required review from this account once branch/ruleset protection
+# requires it.
+* @stevey-m

@@ -13,7 +13,22 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Check for basic HTML/JS issues
-        run: |
-          echo "Placeholder job — replace with a real linter (e.g. eslint, htmlhint)"
-          echo "Copilot can help scaffold this once the repo is live."
+      - name: Run HTMLHint
+        run: npx --yes htmlhint index.html
+
+  syntax-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Check script.js syntax
+        run: node --check script.js

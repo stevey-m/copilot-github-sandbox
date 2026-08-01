@@ -42,23 +42,34 @@ GitHub's servers ("runners") whenever something happens in your repo,
 like a push or a pull request.
 
 ### How to use it
-1. Your workflow file already exists at `.github/workflows/ci.yml`.
-2. Replace the placeholder `lint` job with a real check — for example,
-   using `htmlhint` on `index.html`. Ask Copilot Chat: *"write a GitHub
-   Actions step that installs and runs htmlhint on index.html"* and it
-   will scaffold the YAML for you.
-3. Commit and push the change.
+1. `.github/workflows/ci.yml` already has two real jobs:
+   - **lint** — runs HTMLHint against `index.html`
+   - **syntax-check** — a **matrix build**: runs `node --check
+     script.js` across three Node versions (18, 20, 22) in parallel.
+     This is the part that demonstrates multiple *runners* working at
+     once, not just multiple steps in one job.
+2. `.github/workflows/deploy.yml` deploys the site to GitHub Pages on
+   every push to `main` — see the Setup section in `README.md` for the
+   push → configure Pages source → re-trigger order this needs the
+   first time.
+3. Commit and push.
 
 ### How to test it
 1. Go to your repo on GitHub → **Actions** tab.
-2. You should see a new workflow run start within a few seconds of your
-   push. Click it to watch the job execute live.
+2. You should see both workflows run — expand **syntax-check** and
+   confirm you see three separate parallel jobs, one per Node version
+   in the matrix (this is the "Runners" plural lesson: each matrix
+   entry runs on its own runner instance).
 3. A green checkmark means it passed; a red X means it failed — click
    into the failed step to read the log and see exactly what broke.
-4. To confirm the check is *actually* catching problems (not just always
-   passing), deliberately break something (e.g. an unclosed HTML tag),
-   push it, and confirm the job fails. Then fix it and confirm it passes
-   again.
+4. To confirm the checks are *actually* catching problems, not just
+   always passing: deliberately break something (an unclosed HTML tag
+   for the lint job, a stray bracket in `script.js` for the
+   syntax-check job), push it, and confirm the relevant job fails.
+   Then fix it and confirm it passes again.
+5. Once `CODEOWNERS` and a ruleset requiring status checks are set up
+   (see §3), try opening a PR that fails one of these checks — confirm
+   GitHub visibly blocks merging until it's fixed.
 
 ---
 
