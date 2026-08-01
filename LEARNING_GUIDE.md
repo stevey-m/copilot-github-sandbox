@@ -201,6 +201,49 @@ this is how GitHub talks to outside tools.
 
 ---
 
+## 8. Writing commit messages
+
+Not a GitHub feature exactly, but a real skill this repo is a good
+place to practice — and one that has nothing to do with git mechanics,
+so it's easy to neglect.
+
+### How to use it
+
+A format that works for almost everything:
+```
+<type>: <what changed, imperative mood>
+```
+"Imperative mood" means write it as an instruction — "Add lint job,"
+not "Added lint job" or "Adds lint job." Git's own auto-generated
+commits (merges, reverts) use this style, so it reads consistently
+alongside them.
+
+Common `type` prefixes (the "Conventional Commits" pattern — not
+mandatory, but a solid default, and Copilot Chat follows it well if
+you ask it to write a commit message in this style):
+- `feat:` — a new capability
+- `fix:` — fixing something broken
+- `docs:` — documentation only
+- `chore:` — maintenance, config, no behavior change
+- `ci:` — CI/workflow changes specifically
+
+For a commit doing several related things, add a body after a blank
+line, as bullet points — the short summary line is what shows in
+`git log --oneline` and GitHub's commit list; the body is there for
+anyone who wants the detail without opening the diff.
+
+### How to test it
+
+Not something to "test" in the pass/fail sense — the practical check
+is: six months from now, does `git log --oneline` read like a
+changelog someone could understand without you there to explain it?
+If a commit message needs more than one sentence to describe and
+you're struggling to write it, that's often a signal the commit itself
+is doing too many unrelated things — worth splitting, not just
+wordsmithing a better sentence for it.
+
+---
+
 ## Suggested order of attack
 
 1. Copilot basics (section 1) — do this continuously throughout.
@@ -210,3 +253,5 @@ this is how GitHub talks to outside tools.
 5. Secrets (section 5).
 6. Security (section 6).
 7. Webhooks (section 7) — no dependency on the others, do it whenever.
+8. Commit message habits (section 8) — practice continuously, not a
+   discrete step.

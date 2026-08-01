@@ -15,7 +15,13 @@
 | `.github/ISSUE_TEMPLATE/feature.md` | Lightweight issue template tying tasks to Learning Guide sections |
 | `LICENSE` | MIT license |
 | `.gitignore` | Basic ignores |
-| `docs/GitHub_Copilot_Playground_Transcript.md` | Original planning conversation, kept as reference |
+
+**Not included:** the original planning conversation transcript
+(`GitHub_Copilot_Playground_Transcript.md`) was previously kept in a
+`docs/` folder — removed on review. It's a raw, unedited chat log
+rather than something written for an audience, and adds no value to
+someone evaluating the repo. Worth keeping for your own reference, just
+not in the public repo.
 
 ## What changed since the last package
 
@@ -31,6 +37,9 @@ All six previously-recommended additions are now built:
 6. **Not a file** — the "deliberately-broken PR" exercise is listed as
    a roadmap checklist item in `README.md` rather than something to
    build; it's a testing exercise you run once the checks above exist.
+7. ✅ **New:** `LEARNING_GUIDE.md` §8 now documents commit message
+   conventions (type prefixes, imperative mood, when to split a
+   commit) — a real gap hit while pushing this exact set of changes.
 
 ## What this repo demonstrates now
 
