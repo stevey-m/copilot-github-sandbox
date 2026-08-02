@@ -135,6 +135,15 @@ can be merged, so mistakes get caught before they reach `main`.
    met (bypass rules)"** action — a deliberate, auditable exception
    rather than either "impossible to merge solo" or "silently
    unenforced."
+6. **Important distinction found while testing this on a real
+   Dependabot PR:** the self-approval block only applies when *you*
+   personally are the PR's author. On a **bot-authored** PR (a
+   Dependabot version-bump PR, or later a Copilot coding agent PR),
+   you are not the author — so you can **Approve it normally**,
+   satisfying Code Owners review without needing the bypass path at
+   all. The bypass list is really only needed for the narrower case of
+   merging your own PRs on a solo repo, not for reviewing bot-opened
+   ones.
 
 ### How to test it — full walkthrough, tested end to end
 1. **Confirm a direct push to `main` is rejected:**
@@ -225,17 +234,31 @@ without exposing them in your code or logs.
 **What it is:** Automated scans that flag vulnerable dependencies
 (Dependabot) and risky code patterns (CodeQL).
 
+**Note on where this actually lives:** this is the repo's own
+Settings, not your GitHub account/global Settings — easy to confuse
+since both are called "Settings." From the repo page, click the
+**Settings** tab (top of the repo, not your profile menu). In the
+current UI, the older "Code security" page has been folded into
+**Advanced Security** (sidebar, under a "Security and quality" or
+similar heading) — the same page used for Secret Protection if you've
+set that up on another repo. Dependabot alerts/updates and Code
+scanning (CodeQL) both live on that one combined page now.
+
 ### How to use it
-1. Go to **Settings → Code security**, enable **Dependabot alerts**,
-   **Dependabot security updates**, and **Code scanning** (set up the
-   default CodeQL workflow).
-2. This repo has no dependencies yet, so Dependabot will be quiet at
+1. From the repo, **Settings → Advanced Security**.
+2. Enable **Dependabot alerts** and **Dependabot security updates**.
+3. Under **Code scanning**, click **Set up → Default** for the
+   one-click CodeQL setup (this repo doesn't need the custom-query
+   "advanced setup" used in `least-privilege-demo` — default is fine
+   here).
+4. This repo has no dependencies yet, so Dependabot will be quiet at
    first. Add one small npm package (e.g. install a test runner like
    `vitest` — see section 2) to give it something real to scan.
 
 ### How to test it
-- Check the **Security** tab for a "CodeQL" scan result after your next
-  push — even a clean result confirms the scan ran.
+- Check the **Security** tab (top of the repo, separate from
+  Settings) for a "CodeQL" scan result after your next push — even a
+  clean result confirms the scan ran.
 - For Dependabot, you can browse the [GitHub Advisory
   Database](https://github.com/advisories) to see if any package you've
   added has a known older vulnerable version, install that older
