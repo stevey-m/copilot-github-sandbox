@@ -62,3 +62,4 @@ of each area below.
 - [ ] Deliberately open a PR that fails CI (e.g. break `index.html`
       syntax), watch it fail, then fix it — proves the checks can
       actually catch something, not just pass
+webhook test
