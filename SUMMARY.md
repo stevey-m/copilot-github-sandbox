@@ -81,3 +81,5 @@ A working environment covering:
   commits, CodeQL custom queries) — deliberately kept out to preserve
   the split between the low-stakes sandbox and the security-focused
   portfolio repo.
+
+  ** Review summary at the end of exercise
