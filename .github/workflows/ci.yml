@@ -32,3 +32,6 @@ jobs:
 
       - name: Check script.js syntax
         run: node --check script.js
+
+        - name: Check secret exists
+        run: echo "Secret is set: ${{ secrets.DUMMY_KEY != '' }}"

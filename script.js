@@ -2,6 +2,11 @@
 // This is the file where Copilot suggestions will do most of the work.
 // Start by writing a comment describing a function you want, then let
 // Copilot suggest the implementation.
+// Returns true if the input string is a palindrome
+function isPalindrome(value) {
+  const reversed = reverseString(value);
+  return value === reversed;
+}
 
 /**
  * Example starter function — replace or extend with Copilot's help.
@@ -24,3 +29,18 @@ function runDemo() {
 }
 
 document.getElementById('runBtn').addEventListener('click', runDemo);
+
+function checkPalindrome() {
+  const raw = document.getElementById('palindromeInput').value;
+  // normalise: lowercase and strip non-alphanumeric characters before comparing
+  const normalised = raw.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const result = isPalindrome(normalised);
+  const output = document.getElementById('palindromeOutput');
+  if (raw === '') {
+    output.textContent = 'Please enter a value.';
+  } else {
+    output.textContent = `"${raw}" is ${result ? '' : 'not '}a palindrome.`;
+  }
+}
+
+document.getElementById('palindromeBtn').addEventListener('click', checkPalindrome);
