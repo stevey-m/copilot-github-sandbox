@@ -1,21 +1,22 @@
+YML
 name: CI
-
+ 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
+ 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
+ 
       - name: Run HTMLHint
         run: npx --yes htmlhint index.html
-
+ 
   syntax-check:
     runs-on: ubuntu-latest
     strategy:
@@ -24,14 +25,21 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
+ 
       - name: Set up Node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
+ 
       - name: Check script.js syntax
         run: node --check script.js
-
-        - name: Check secret exists
+ 
+  secrets-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+ 
+      - name: Check secret exists
         run: echo "Secret is set: ${{ secrets.DUMMY_KEY != '' }}"
+ 
