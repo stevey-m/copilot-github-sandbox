@@ -55,9 +55,12 @@ A working environment covering:
 - ✅ Ruleset requiring PRs, all 4 status checks, and Code Owners review
   — tested with a rejected direct push, a blocked PR, and a real
   admin-bypass merge (GitHub doesn't allow self-approval, even for the
-  repo owner — the bypass-list + admin-role pattern is the correct fix
-  for a solo-maintainer repo, and it logs every use). Full tested
-  procedure is in `LEARNING_GUIDE.md` §4.
+  repo owner). Testing also surfaced that the bypass list's default
+  mode ("Always allow") exempts admins from the *entire* ruleset, not
+  just the review requirement — this repo is correctly set to **"For
+  pull requests only"**, matching `least-privilege-demo`, so direct
+  pushes to `main` are blocked for everyone including the admin. Full
+  tested procedure is in `LEARNING_GUIDE.md` §4.
 
 ## Suggested next additions (not yet built)
 
@@ -81,5 +84,3 @@ A working environment covering:
   commits, CodeQL custom queries) — deliberately kept out to preserve
   the split between the low-stakes sandbox and the security-focused
   portfolio repo.
-
-** testing ruleset and webhook
