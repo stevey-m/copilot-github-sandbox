@@ -144,6 +144,19 @@ can be merged, so mistakes get caught before they reach `main`.
    all. The bypass list is really only needed for the narrower case of
    merging your own PRs on a solo repo, not for reviewing bot-opened
    ones.
+7. **A real gap found via the webhooks exercise (§7):** when adding
+   Repository admin to the bypass list in step 5, GitHub defaults the
+   bypass mode to **"Always allow"** — which exempts admins from the
+   *entire* ruleset, including direct pushes straight to `main`, not
+   just the Code Owners review requirement. This was only caught
+   because a webhook payload showed a direct push to `main` succeeding
+   when it should have been rejected. **Fix:** in the bypass list
+   entry for Repository admin, change the mode from "Always allow" to
+   **"For pull requests only."** This keeps the narrow exception (admin
+   can bypass the review deadlock when merging a PR) while restoring
+   full protection against direct pushes, even for the admin. Worth
+   checking this setting specifically any time a bypass list is added
+   for any reason — the default is broader than it first appears.
 
 ### How to test it — full walkthrough, tested end to end
 1. **Confirm a direct push to `main` is rejected:**
