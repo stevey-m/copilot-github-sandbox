@@ -82,4 +82,3 @@ A working environment covering:
   the split between the low-stakes sandbox and the security-focused
   portfolio repo.
 
-  ** Review summary at the end of exercise
