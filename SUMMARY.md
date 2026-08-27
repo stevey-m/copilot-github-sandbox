@@ -37,7 +37,7 @@ All six previously-recommended additions are now built:
 6. **Not a file** — the "deliberately-broken PR" exercise is listed as
    a roadmap checklist item in `README.md` rather than something to
    build; it's a testing exercise you run once the checks above exist.
-7. ✅ **New:** `LEARNING_GUIDE.md` §8 now documents commit message
+7. ✅ **New:** `LEARNING_GUIDE.md` §2 now documents commit message
    conventions (type prefixes, imperative mood, when to split a
    commit) — a real gap hit while pushing this exact set of changes.
 
@@ -60,12 +60,12 @@ A working environment covering:
   just the review requirement — this repo is correctly set to **"For
   pull requests only"**, matching `least-privilege-demo`, so direct
   pushes to `main` are blocked for everyone including the admin. Full
-  tested procedure is in `LEARNING_GUIDE.md` §4.
+  tested procedure is in `LEARNING_GUIDE.md` §6.
 
 ## Suggested next additions (not yet built)
 
 **Small, quick:**
-- **A repo secret + reference it in a workflow** — Learning Guide §5
+- **A repo secret + reference it in a workflow** — Learning Guide §7
   covers this; no new file needed, just a settings step and one line
   added to a workflow.
 

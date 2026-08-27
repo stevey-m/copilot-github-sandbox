@@ -40,7 +40,7 @@ Copilot can extend.
 4. Start extending `script.js` — write a comment describing a function,
    let Copilot suggest it, then wire it into `index.html`.
 5. In **Settings → Pages**, set Source to **GitHub Actions** so
-   `deploy.yml` can publish the site (see Learning Guide §2 for the
+   `deploy.yml` can publish the site (see Learning Guide §4 for the
    full push → configure → re-trigger order this needs).
 
 ## Learning roadmap
@@ -53,7 +53,7 @@ of each area below.
 - [x] Deploy to GitHub Pages
 - [x] Enable branch protection via a ruleset — require PRs, require all
       4 status checks, require Code Owners review, with an admin
-      bypass path for the solo-maintainer case (see Learning Guide §4)
+      bypass path for the solo-maintainer case (see Learning Guide §6)
 - [ ] Get a Copilot-suggested function working end-to-end in the browser
 - [ ] Open a pull request and try Copilot code review
 - [ ] Add a repo secret and reference it in a workflow (e.g. a dummy API key)
@@ -62,4 +62,3 @@ of each area below.
 - [ ] Deliberately open a PR that fails CI (e.g. break `index.html`
       syntax), watch it fail, then fix it — proves the checks can
       actually catch something, not just pass
-webhook test
